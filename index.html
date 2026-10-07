@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Navratri Planner — find Garba events, plan your night, discover food, parking and share your festival plan." />
+  <meta name="theme-color" content="#8b1e3f" />
+  <title>Navratri Planner | Plan Your Garba Night</title>
+
+  <link rel="preconnect" href="https://unpkg.com">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIINfQ3g2s9f2e8Y0W3K3r7f1Z4Q5l7sY6s="
+        crossorigin=""/>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav">
+      <a class="brand" href="#">
+        <span class="brand-mark">✦</span>
+        <span>Navratri Planner</span>
+      </a>
+      <button class="nav-cta" id="useLocationBtn">📍 Near me</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container hero-inner">
+        <div class="hero-copy">
+          <span class="eyebrow">NAVRATRI 2026 • FESTIVAL GUIDE</span>
+          <h1>Plan your <span>perfect Garba night.</span></h1>
+          <p>Find events, compare vibes, check parking and food, then build a shareable Navratri plan in minutes.</p>
+
+          <div class="planner-box">
+            <label for="citySelect">Where are you celebrating?</label>
+            <div class="planner-row">
+              <select id="citySelect">
+                <option value="All">All cities</option>
+              </select>
+              <button class="primary-btn" id="planBtn">✨ Plan my night</button>
+            </div>
+          </div>
+
+          <div class="quick-pills">
+            <button data-filter="free">Free</button>
+            <button data-filter="family">Family</button>
+            <button data-filter="parking">Parking</button>
+            <button data-filter="traditional">Traditional</button>
+            <button data-filter="food">Food nearby</button>
+          </div>
+        </div>
+
+        <div class="hero-card">
+          <div class="diya">🪔</div>
+          <p class="mini-label">TONIGHT'S VIBE</p>
+          <h2>Garba • Music • Food</h2>
+          <p>One simple place to discover what's happening and organize your evening.</p>
+          <div class="hero-stats">
+            <div><strong id="heroEvents">0</strong><span>events</span></div>
+            <div><strong id="heroCities">0</strong><span>cities</span></div>
+            <div><strong>₹0</strong><span>to browse</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="container section">
+      <div class="section-heading">
+        <div>
+          <span class="eyebrow">DISCOVER</span>
+          <h2>What's happening?</h2>
+        </div>
+        <button class="text-btn" id="resetBtn">Reset filters</button>
+      </div>
+
+      <div class="toolbar">
+        <div class="search-wrap">
+          <span>⌕</span>
+          <input id="searchInput" type="search" placeholder="Search event, area, venue..." />
+        </div>
+        <select id="dateFilter">
+          <option value="All">Any date</option>
+          <option value="2026-10-11">Oct 11</option>
+          <option value="2026-10-12">Oct 12</option>
+          <option value="2026-10-13">Oct 13</option>
+          <option value="2026-10-14">Oct 14</option>
+        </select>
+        <select id="budgetFilter">
+          <option value="All">Any budget</option>
+          <option value="Free">Free</option>
+          <option value="Under 500">Under ₹500</option>
+          <option value="500-1000">₹500–₹1,000</option>
+        </select>
+        <select id="vibeFilter">
+          <option value="All">Any vibe</option>
+          <option value="Traditional">Traditional</option>
+          <option value="Family">Family</option>
+          <option value="DJ">DJ</option>
+          <option value="Premium">Premium</option>
+        </select>
+      </div>
+
+      <div class="layout-grid">
+        <div>
+          <div class="result-meta">
+            <span id="resultCount">0 events</span>
+            <span class="demo-note">Demo listings — verify before publishing</span>
+          </div>
+          <div id="eventGrid" class="event-grid"></div>
+          <div id="emptyState" class="empty hidden">
+            <div>🪔</div>
+            <h3>No matching events</h3>
+            <p>Try another city, date, budget or vibe.</p>
+            <button class="primary-btn" id="emptyReset">Show all events</button>
+          </div>
+        </div>
+
+        <aside class="map-card">
+          <div id="map"></div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="planner-section">
+      <div class="container">
+        <div class="section-heading">
+          <div>
+            <span class="eyebrow">YOUR NIGHT</span>
+            <h2>Build a Navratri plan</h2>
+          </div>
+        </div>
+
+        <div class="plan-panel">
+          <div class="plan-form">
+            <label>Who are you going with?
+              <select id="groupFilter">
+                <option value="Family">Family</option>
+                <option value="Friends">Friends</option>
+                <option value="Couple">Couple</option>
+                <option value="Solo">Solo</option>
+              </select>
+            </label>
+            <label>Budget per person
+              <select id="planBudget">
+                <option value="Free">Free</option>
+                <option value="500">Up to ₹500</option>
+                <option value="1000">Up to ₹1,000</option>
+                <option value="2000">Up to ₹2,000</option>
+              </select>
+            </label>
+            <label>Preferred vibe
+              <select id="planVibe">
+                <option value="Traditional">Traditional</option>
+                <option value="Family">Family</option>
+                <option value="DJ">DJ</option>
+                <option value="Premium">Premium</option>
+              </select>
+            </label>
+            <label class="check-row">
+              <input type="checkbox" id="needParking" checked />
+              I need parking
+            </label>
+            <button class="primary-btn full" id="generatePlan">Generate my plan ✨</button>
+          </div>
+
+          <div class="plan-result" id="planResult">
+            <div class="plan-placeholder">
+              <div class="big-icon">🕺</div>
+              <h3>Your personalized plan will appear here</h3>
+              <p>Choose your preferences and we'll recommend a matching event from the demo atlas.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="container section">
+      <div class="info-grid">
+        <article>
+          <span class="info-icon">🎟️</span>
+          <h3>Compare events</h3>
+          <p>See entry price, timing, vibe, family suitability and parking at a glance.</p>
+        </article>
+        <article>
+          <span class="info-icon">🍽️</span>
+          <h3>Plan the full evening</h3>
+          <p>Use food, parking and nearby-place notes to make your night easier.</p>
+        </article>
+        <article>
+          <span class="info-icon">📲</span>
+          <h3>Share your plan</h3>
+          <p>Send your selected event and plan to friends or family on WhatsApp.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="about">
+      <div class="container about-inner">
+        <div>
+          <span class="eyebrow">FOR ORGANIZERS</span>
+          <h2>Want your Garba event listed?</h2>
+          <p>This starter site is ready for you to add verified events, organizer contacts, ticket links and sponsorship placements.</p>
+        </div>
+        <a class="outline-btn" href="mailto:hello@example.com?subject=Navratri%20event%20listing">List an event →</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div><strong>Navratri Planner</strong><br><span>Made for festive discovery.</span></div>
+      <div class="footer-links">
+        <a href="#">About</a>
+        <a href="#">Privacy</a>
+        <a href="#">Contact</a>
+      </div>
+    </div>
+    <p class="footer-note">© 2026 Navratri Planner. Demo data must be verified before public use.</p>
+  </footer>
+
+  <div class="modal hidden" id="detailsModal" role="dialog" aria-modal="true">
+    <div class="modal-card">
+      <button class="modal-close" id="modalClose">×</button>
+      <div id="modalContent"></div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+          integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+          crossorigin=""></script>
+  <script src="script.js"></script>
+</body>
+</html>
