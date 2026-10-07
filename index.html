@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#6d28d9">
+<title>Plan My Navratri ✨</title>
+<meta name="description" content="Find verified Navratri and Garba events by city, budget, group and preferences.">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="#top"><span class="brand-mark">✦</span><span>Plan My Navratri</span></a>
+  <nav><a href="#planner">Planner</a><a href="#events">Events</a><a href="#how">How it works</a></nav>
+  <button class="ghost-btn" id="shareTop">Share</button>
+</header>
+
+<main id="top">
+<section class="hero">
+  <div class="hero-copy">
+    <div class="eyebrow">NAVRATRI 2026 · VERIFIED LISTINGS</div>
+    <h1>Your Navratri.<br><span>Your perfect night.</span></h1>
+    <p>Answer five quick questions and get a personalized Garba plan using event details checked against organizer, tourism and ticketing sources.</p>
+    <div class="hero-actions"><a class="primary-btn" href="#planner">Build my plan <span>→</span></a><a class="text-btn" href="#events">Browse verified events</a></div>
+    <div class="trust-row"><span>✓ Source-linked</span><span>✓ Updated 7 Oct 2026</span><span>✓ Free to use</span></div>
+  </div>
+  <div class="hero-card">
+    <div class="mini-label">TONIGHT'S PLANNING SIGNAL</div>
+    <div class="signal"><span class="pulse"></span><strong>10 verified listings</strong></div>
+    <p>Dates, venues, prices and facilities are shown with a source link. Always confirm last-minute changes with the organizer.</p>
+    <div class="date-pill">Navratri · 11–20 Oct 2026</div>
+  </div>
+</section>
+
+<section class="planner-wrap" id="planner">
+  <div class="section-heading">
+    <div><div class="eyebrow">01 · PERSONALIZE</div><h2>Build your Navratri plan</h2></div>
+    <span class="step-count" id="stepCount">1 / 5</span>
+  </div>
+  <div class="progress"><span id="progressBar"></span></div>
+
+  <div class="question-card">
+    <div class="question active" data-step="1">
+      <div class="q-number">01</div><h3>Where are you celebrating?</h3><p>Choose your city so we can match nearby events.</p>
+      <div class="choice-grid" id="cityChoices"></div>
+    </div>
+    <div class="question" data-step="2">
+      <div class="q-number">02</div><h3>Who are you going with?</h3><p>Your group changes the kind of event that fits best.</p>
+      <div class="choice-grid" id="groupChoices"></div>
+    </div>
+    <div class="question" data-step="3">
+      <div class="q-number">03</div><h3>What's your budget?</h3><p>We prioritize listings that fit the amount you want to spend.</p>
+      <div class="choice-grid" id="budgetChoices"></div>
+    </div>
+    <div class="question" data-step="4">
+      <div class="q-number">04</div><h3>What kind of Garba do you like?</h3><p>Pick the vibe you want most.</p>
+      <div class="choice-grid" id="styleChoices"></div>
+    </div>
+    <div class="question" data-step="5">
+      <div class="q-number">05</div><h3>What do you need?</h3><p>Select everything that matters to you.</p>
+      <div class="choice-grid" id="needChoices"></div>
+    </div>
+    <div class="wizard-actions">
+      <button class="secondary-btn" id="backBtn">← Back</button>
+      <button class="primary-btn" id="nextBtn">Next →</button>
+    </div>
+  </div>
+</section>
+
+<section class="results" id="results">
+  <div class="result-head">
+    <div><div class="eyebrow">02 · YOUR MATCH</div><h2>Your Navratri Plan ✨</h2><p id="matchSummary"></p></div>
+    <button class="secondary-btn" id="restartBtn">Start over</button>
+  </div>
+  <div id="resultList"></div>
+</section>
+
+<section class="events-section" id="events">
+  <div class="section-heading">
+    <div><div class="eyebrow">03 · EXPLORE</div><h2>Verified event directory</h2><p>Filter by city, budget or feature. Every listing has a source and verification date.</p></div>
+  </div>
+  <div class="filters">
+    <select id="filterCity"><option value="">All cities</option></select>
+    <select id="filterBudget"><option value="">Any budget</option><option value="0">Free</option><option value="500">Up to ₹500</option><option value="1000">Up to ₹1,000</option><option value="2000">Up to ₹2,000</option><option value="2001">₹2,000+</option></select>
+    <select id="filterFeature"><option value="">Any facility</option><option value="parking">Parking</option><option value="food">Food</option><option value="shopping">Shopping</option><option value="photography">Photography</option><option value="family">Family-friendly</option></select>
+    <input id="searchBox" placeholder="Search event, venue or area…">
+  </div>
+  <div class="data-note"><span>●</span> Data checked 7 Oct 2026 · Source links open the organizer/ticketing page.</div>
+  <div id="eventGrid" class="event-grid"></div>
+</section>
+
+<section class="how" id="how">
+  <div class="section-heading"><div><div class="eyebrow">04 · TRUST</div><h2>Built for real planning</h2></div></div>
+  <div class="how-grid">
+    <article><span>01</span><h3>Source-linked</h3><p>Each event shows where its date, price and venue information came from.</p></article>
+    <article><span>02</span><h3>Smart matching</h3><p>Your five answers are scored against city, budget, group, style and facilities.</p></article>
+    <article><span>03</span><h3>Last-minute safe</h3><p>Event details can change. Use the source link before leaving home to reconfirm.</p></article>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div><strong>Plan My Navratri ✦</strong><p>Independent event discovery tool · 2026</p></div>
+  <p>Information is for planning only. Verify availability, ticket validity and timings with the event organizer.</p>
+</footer>
+
+<script src="events.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
